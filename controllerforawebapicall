@@ -1,0 +1,21 @@
+// Controller code for web api and is to be called from UI. 
+
+
+[RoutePrefix("api/routename")]
+    public class Controller:ApiBase 
+    {
+        private readonly IService _iService;
+
+        public Controller( IService iService)
+        {
+            _iService = iService;
+        }
+
+        [HttpPost]
+        [Route("summary")]
+        public HttpResponseMessage Get(ApiParams apiParams)
+        {
+            return ProcessRequestOk(() => _iService.GetSummary(apiParams),
+                $"Unable to retrieve Summary {apiParams.Type}"); //error message
+        }
+    }
